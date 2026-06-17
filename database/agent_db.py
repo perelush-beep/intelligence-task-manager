@@ -1,5 +1,5 @@
 import mysql.connector
-class AgebtDB:
+class AgentDB:
     #connect to data base, execute sql, auto conmmit, fetchall. print exception in case of error and close connection and cursor afterward
     def sql_executer(query):
         try:
@@ -18,7 +18,11 @@ class AgebtDB:
         query = """
             INSERT INTO agents (name,speciality) values (%s,%s);
         """, (data['name'],data['speciality'])
+        query2 = """"
+                SELECT * FROM agents WHERE name=%s AND speciality=%s;
+                """,(data['name'],data['speciality'])
         self.sql_executer(query)
+        return self.sql_executer(query2)
     
     def get_all_agents(self):
         query = "SELECT * FROM agents;"
@@ -76,7 +80,7 @@ class AgebtDB:
         query = """"
                 SELECT is_active 
                 FROM agents 
-                WHERE is_active=true
+                WHERE is_active=true;
                 """
         data = self.sql_executer(query)
         return sum(data)
