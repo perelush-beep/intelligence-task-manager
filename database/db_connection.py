@@ -3,7 +3,7 @@ from tables_model import agents, mission
 
 class DB_connection:
     #connect to data base, execute sql, auto conmmit. print exception in case of error and close connection and cursor afterward
-    def sql_executer(query):
+    def sql_executer(query:str):
         try:
             connection = mysql.connector.connect()
             cursor = connection.cursor()
@@ -16,7 +16,7 @@ class DB_connection:
             connection.close()
 
     def create_database(self):
-        query ="CREATE DATABASE intelligence-mysql;"
+        query ="CREATE DATABASE IF NOT EXISTS intelligence-mysql;"
         self.sql_executer(query)
 
     def get_connection():

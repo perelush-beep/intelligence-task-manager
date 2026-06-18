@@ -23,6 +23,7 @@ def status_summary(status:str):
     summary['in_progress'] = MissionDB.count_by_status(status)
     summary['completed'] = MissionDB.count_by_status(status)
     summary['failed'] = MissionDB.count_by_status(status)
+    summary['critical'] = MissionDB.count_critical_missions()
     return summary
 
 
