@@ -16,7 +16,7 @@ class AgentDB:
         
     def create_agent(self,data):
         query = """
-            INSERT INTO agents (name,speciality) values (%s,%s);
+            INSERT INTO agents (name, speciality) values (%s,%s);
         """, (data['name'],data['speciality'])
         query2 = """"
                 SELECT * FROM agents WHERE name=%s AND speciality=%s;
@@ -36,20 +36,20 @@ class AgentDB:
     
     def update_agent(self,id,data):
         query = """
-                UPDATE name=%s, speciality=%s, is_active=%s, completed_missions=%s, faild_mission=%s, agent_rank=%s where id=%s;
+                UPDATE name=%s, speciality=%s, is_active=%s, completed_missions=%s, faild_missions=%s, agent_rank=%s WHERE id=%s;
                 """, (data['name'],data['speciality'],data['is_active'],data['completed_missions'],data['faild_missions'],data['agent_rank'],id)
         
     def deactivate_agent(self,id):
         query ="""
                 UPDATE agents
-                SET is_active=%s where id=%s;""",("false",id)
+                SET is_active=%s WHERE id=%s;""",("false",id)
         self.sql_executer(query)
     
     #updates completed_missions column
     def increment_completed(self,id):
         query = """"
                 UPDATE agents
-                SET comleted_missions+%s
+                SET comleted_missions + %s
                 WHERE id=%s;""",(1,id)
         self.sql_executer(query)
 
@@ -78,10 +78,10 @@ class AgentDB:
     
     def count_active_agents(self):
         query = """"
-                SELECT is_active 
+                SELECT COUNT(is_active) 
                 FROM agents 
                 WHERE is_active=true;
                 """
-        data = self.sql_executer(query)
-        return sum(data)
+        return self.sql_executer(query)
+    
     

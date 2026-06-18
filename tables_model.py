@@ -13,7 +13,7 @@ mission = """
 CREATE TABLE mission(
 id INT AUTO_INCREMENT PRIMARY KEY,
 title VARCHAR(100),
-descriptoin TEXT,
+description TEXT,
 location VARCHAR(50),
 difficulty INT,
 importance INT,
